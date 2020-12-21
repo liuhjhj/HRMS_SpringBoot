@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Sign in</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet" th:href="@{/asserts/css/signin.css}">
+</head>
+<body class="text-center">
+<!--    更改表单action的链接要注意一起更改拦截器的链接，否则会报405  -->
+<form class="form-signin" th:action="@{/login}" th:method="post">
+    <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"
+         th:src="@{/asserts/images/signin.svg}">
+    <!-- 要把国际化资源文件加到配置spring.messages.basename中 -->
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{please_sign_in}">Please sign in</h1>
+    <p style="color: red" th:text="#{${error}}" th:if="${not #strings.isEmpty(error)}"></p>
+    <label for="username" class="sr-only">[[#{username}]]</label>
+    <input name="username" type="text" id="username" class="form-control" th:placeholder="#{username}" required autofocus>
+    <label for="password" class="sr-only">[[#{password}]]</label>
+    <input name="password" type="password" id="password" class="form-control" th:placeholder="#{password}" required>
+    <div class="checkbox mb-3" th:if="${false}">
+        <label>
+            <input type="checkbox" value="remember-me"> [[#{remember_me}]]
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" th:method="post" th:text="#{sign_in}">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    <a class="btn btn-sm" th:href="@{/index.html(lang='zh_CN')}">中文</a>
+    <a class="btn btn-sm" th:href="@{/index.html(lang='en_US')}">English</a>
+</form>
+</body>
+</html>

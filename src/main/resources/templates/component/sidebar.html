@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0" id="side_bar">
+    <div class="main-navbar">
+        <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+            <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                    <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;"
+                         src="images/shards-dashboards-logo.svg" alt="Shards Dashboard" th:src="@{/asserts/images/shards-dashboards-logo.svg}">
+                    <span class="d-none d-md-inline ml-1">[[#{welcome}]],[[${session.username}]]</span>
+                </div>
+            </a>
+            <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons">&#xE5C4;</i>
+            </a>
+        </nav>
+    </div>
+    <div class="nav-wrapper">
+        <!-- 利用字符串切割来获取当前页面的Uri -->
+        <ul class="nav flex-column" th:with="activeUri=${#strings.substring(#httpServletRequest.requestURI,1)}">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html" th:href="@{/staffs}" th:class="${activeUri=='staffs' or activeUri=='staff'?'nav-link active':'nav-link'}">
+                    <i class="material-icons">edit</i>
+                    <span>[[#{staff_management}]]</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="components-blog-posts.html" th:href="@{/departments}" th:class="${activeUri=='departments' or activeUri=='department'?'nav-link active':'nav-link'}">
+                    <i class="material-icons">vertical_split</i>
+                    <span>[[#{department_management}]]</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="user-profile-lite.html" th:href="@{/userprofile/}+${#session.getAttribute('username')}" th:class="${activeUri=='userprofile'?'nav-link active':'nav-link'}">
+                    <i class="material-icons">person</i>
+                    <span>[[#{userprofile}]]</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="add-new-post.html">
+                    <i class="material-icons">note_add</i>
+                    <span>[[#{add_new_user}]]</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="user-profile-lite.html" th:href="@{/exit}">
+                    <i class="material-icons">error</i>
+                    <span>[[#{exit}]]</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+</body>
+</html>

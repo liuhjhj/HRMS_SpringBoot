@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuhjhj.hrms.dao.StaffDao">
+
+    <resultMap id="staffMap" type="com.liuhjhj.hrms.entity.Staff">
+        <!-- column数据库表的列名(查询的别名)
+             property实体的成员变量名 -->
+        <!-- 多个表的列名重复时，查询需要设置别名，并在resultMap中使用别名 -->
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+        <id column="gender" property="gender"/>
+        <id column="age" property="age"/>
+        <collection property="department" javaType="com.liuhjhj.hrms.entity.Department">
+            <id column="departmentId" property="id"/>
+            <id column="departmentName" property="name"/>
+            <!-- departmentName是别名 -->
+            <!-- select staff.id, staff.name, staff.gender,
+            staff.age, staff.departmentId, department.name as departmentName
+            from staff,department where staff.departmentId=department.id; -->
+        </collection>
+    </resultMap>
+
+    <select id="getStaffs" resultMap="staffMap">
+        select staff.*, department.name as departmentName
+        from staff,
+             department
+        where staff.departmentId = department.id;
+    </select>
+
+    <select id="getStaffById" resultMap="staffMap">
+        select staff.*, department.name as departmentName
+        from staff,
+             department
+        where staff.departmentId = department.id
+          and staff.id = #{id};
+    </select>
+
+    <select id="getStaffByName" resultMap="staffMap">
+        select staff.*, department.name as departmentName
+        from staff,
+             department
+        where staff.departmentId = department.id
+          and staff.name = #{name};
+    </select>
+
+    <insert id="addStaff">
+        insert into staff(name, gender, age, departmentId)
+        values (#{name}, #{gender}, #{age}, #{department.id})
+    </insert>
+
+    <update id="updateStaff">
+        update staff
+        set name=#{name},
+            gender=#{gender},
+            age=#{age},
+            departmentId=#{department.id}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStaff">
+        delete
+        from staff
+        where id = #{id}
+    </delete>
+</mapper>

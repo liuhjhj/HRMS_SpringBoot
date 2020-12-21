@@ -1,0 +1,97 @@
+<!doctype html>
+<html class="no-js h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Staff List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/all.css" rel="stylesheet" th:href="@{/asserts/css/all.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="styles/shards-dashboards.1.1.0.min.css"
+          th:href="@{/asserts/css/shards-dashboards.1.1.0.min.css}">
+    <link rel="stylesheet" href="styles/extras.1.1.0.min.css" th:href="@{/asserts/css/extras.1.1.0.min.css}">
+    <script async defer src="js/buttons.js" th:src="@{/asserts/js/buttons.js}"></script>
+</head>
+<body class="h-100">
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Sidebar -->
+        <div th:replace="component/sidebar::#side_bar"></div>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+            <!-- / .main-navbar -->
+            <div class="main-content-container container-fluid px-4">
+                <div th:replace="component/topbar::#top_bar"></div>
+                <div>
+                    <div class="card card-small mb-4">
+                        <div class="card-header border-bottom">
+                            <h6 class="m-0">[[#{staff_details}]]</h6>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- 如果staff不为空则表明是update页面，method是PUT;否则就是add页面，method是POST -->
+                                        <!-- 需要在配置文件里设置spring.mvc.hiddenmethod.filter.enabled=true，否则无法发送Put和Delete请求 -->
+                                        <form th:method="${staff!=null}?'put':'post'" th:action="@{/staff}">
+                                            <!-- update的话需要保存staff的id去数据库里更新staff -->
+                                            <input type="hidden" name="id" id="id" th:if="${staff!=null}" th:value="${staff.id}">
+                                            <div class="form-group">
+                                                <label for="name">[[#{name}]]</label>
+                                                <input type="text" class="form-control" id="name" name="name" th:placeholder="#{name}" th:value="${staff!=null}?${staff.name}">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="gender">[[#{gender}]]</label>
+                                                    <select class="form-control" id="gender" name="gender">
+                                                        <option th:selected="${staff!=null}?${staff.gender==0}" th:value="0" th:text="#{female}"></option>
+                                                        <option th:selected="${staff!=null}?${staff.gender==1}" th:value="1" th:text="#{male}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="age">[[#{age}]]</label>
+                                                    <input type="number" class="form-control" id="age" name="age" th:placeholder="#{age}" th:value="${staff!=null}?${staff.age}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="department">[[#{department}]]</label>
+                                                <!-- 要设置select标签的name属性，不是option标签的name属性 -->
+                                                <select type="text" class="form-control" id="department" name="department.id">
+                                                    <!-- th:each可以在一个标签里用 -->
+                                                    <option th:each="department:${departments}" th:value="${department.id}" th:selected="${staff!=null}?${staff.department.id==department.id}">[[${department.name}]]</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-accent" th:text="#{apply}"></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- / .main-navbar -->
+            <div th:replace="component/bottombar::#bottom_bar"></div>
+        </main>
+    </div>
+</div>
+<script src="scripts/jquery-3.3.1.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/popper.min.js" th:src="@{/webjars/popper.js/1.16.0/popper.js}"></script>
+<script src="scripts/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.js}"></script>
+<script src="scripts/Chart.min.js" th:src="@{/webjars/chartjs/2.9.3/Chart.js}"></script>
+<script src="scripts/shards.min.js" th:src="@{/asserts/js/shards.min.js}"></script>
+<script src="scripts/jquery.sharrre.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/extras.1.1.0.min.js" th:src="@{/asserts/js/extras.1.1.0.min.js}"></script>
+<script src="scripts/shards-dashboards.1.1.0.min.js" th:src="@{/asserts/js/shards-dashboards.1.1.0.js}"></script>
+<script src="scripts/app/app-blog-overview.1.1.0.js" th:src="@{/asserts/js/app/app-blog-overview.1.1.0.js}"></script>
+</body>
+<script>
+    $(function () {
+        $("#back").click(function () {
+            window.location.href="/staffs"
+        }).removeClass("btn-success").addClass("btn-primary")
+    })
+</script>
+</html>

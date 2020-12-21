@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="page-header row no-gutters py-4" id="top_bar">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">[[#{overview}]]</span>
+        <!-- 利用字符串分割来获取当前Uri，避免需要从上一个页面传参数 -->
+        <h3 class="page-title" th:text="#{${#strings.arraySplit(#httpServletRequest.requestURI,'/')[0]}}"></h3>
+    </div>
+    <div class="col-12 col-sm-8 text-center text-sm-right mb-0 mt-3">
+        <!-- 从后台传入button的action类型（添加，更新或者返回），避免从上一个页面传入参数 -->
+        <button type="button" class="mb-2 btn btn-success mr-2" th:id="${buttonAction}" th:name="${buttonAction}">[[#{${buttonAction}}]]</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: 258194376
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hrms
+
+  messages:
+    basename: i18n.login,i18n.dashboard,i18n.staff,i18n.department,i18n.userprofile,i18n.error
+    encoding: UTF-8
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  thymeleaf:
+    cache: false
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml

@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Staff List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/all.css" rel="stylesheet" th:href="@{/asserts/css/all.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="styles/shards-dashboards.1.1.0.min.css"
+          th:href="@{/asserts/css/shards-dashboards.1.1.0.min.css}">
+    <link rel="stylesheet" href="styles/extras.1.1.0.min.css" th:href="@{/asserts/css/extras.1.1.0.min.css}">
+    <script async defer src="js/buttons.js" th:src="@{/asserts/js/buttons.js}"></script>
+</head>
+<body class="h-100">
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Sidebar -->
+        <div th:replace="component/sidebar::#side_bar"></div>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+            <!-- / .main-navbar -->
+            <div class="main-content-container container-fluid px-4">
+                <!-- buttonType：顶栏的按钮的功能（添加，返回或更新） -->
+                <div th:replace="component/topbar::#top_bar"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-small mb-4">
+                            <div class="card-header border-bottom">
+                                <h6 class="m-0">[[#{current_staff}]]</h6>
+                            </div>
+                            <div class="card-body p-0 pb-3 text-center">
+                                <table class="table mb-0" style="table-layout:fixed">
+                                    <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" class="border-0">[[#{id}]]</th>
+                                        <th scope="col" class="border-0">[[#{name}]]</th>
+                                        <th scope="col" class="border-0">[[#{gender}]]</th>
+                                        <th scope="col" class="border-0">[[#{age}]]</th>
+                                        <th scope="col" class="border-0">[[#{department}]]</th>
+                                        <th scope="col" class="border-0">[[#{option}]]</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="staff:${staffs}" th:if="${staff.name}!=${#session.getAttribute('username')}">
+                                        <td th:text="${staff.id}"></td>
+                                        <td th:text="${staff.name}"></td>
+                                        <td th:text="${staff.gender}==0?#{female}:#{male}"></td>
+                                        <td th:text="${staff.age}"></td>
+                                        <td th:text="${staff.department.name}"></td>
+                                        <td>
+                                            <!-- a标签发送Get请求 -->
+                                            <a type="button" class="mb-2 btn btn-primary mr-2" th:href="@{/staff/}+${staff.id}">[[#{update}]]</a>
+                                            <!-- button利用下面的delete表单发送Delete请求 -->
+                                            <!-- button每点击一次，delete表单就会提交一次 -->
+                                            <button type="button" class="mb-2 btn btn-danger mr-2" th:attr="deleteUri=@{/staff/}+${staff.id}">[[#{delete}]]</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <form id="deleteForm" th:method="delete"></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / .main-navb-->
+            <div th:replace="component/bottombar::#bottom_bar"></div>
+        </main>
+    </div>
+</div>
+<script src="scripts/jquery-3.3.1.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/popper.min.js" th:src="@{/webjars/popper.js/1.16.0/popper.js}"></script>
+<script src="scripts/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.js}"></script>
+<script src="scripts/Chart.min.js" th:src="@{/webjars/chartjs/2.9.3/Chart.js}"></script>
+<script src="scripts/shards.min.js" th:src="@{/asserts/js/shards.min.js}"></script>
+<script src="scripts/jquery.sharrre.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/extras.1.1.0.min.js" th:src="@{/asserts/js/extras.1.1.0.min.js}"></script>
+<script src="scripts/shards-dashboards.1.1.0.min.js" th:src="@{/asserts/js/shards-dashboards.1.1.0.js}"></script>
+<script src="scripts/app/app-blog-overview.1.1.0.js" th:src="@{/asserts/js/app/app-blog-overview.1.1.0.js}"></script>
+</body>
+<script>
+    $(function () {
+        $("#add").click(function () {
+            window.location.href="/staff"
+        })
+    })
+</script>
+<script>
+    $(function () {
+        $(".btn-danger").click(function () {
+            $("#deleteForm").attr("action", $(this).attr("deleteUri")).submit();
+        })
+    })
+</script>
+</html>
