@@ -9,6 +9,8 @@ public interface StaffDao {
 
     List<Staff> getStaffs();
 
+    List<Staff> getStaffsWithoutUser();
+
     Staff getStaffById(Integer id);
 
     Staff getStaffByName(String name);

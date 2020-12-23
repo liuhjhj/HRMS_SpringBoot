@@ -15,6 +15,11 @@
         where username = #{username};
     </select>
 
+    <insert id="addUser">
+        insert into user
+        values (#{username}, #{password}, #{staffId})
+    </insert>
+
     <update id="updatePassword">
         update user
         set password=#{password}

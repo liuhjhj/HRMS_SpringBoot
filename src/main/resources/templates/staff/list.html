@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Staff List</title>
+    <title>[[#{staff_management}]]</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="css/all.css" rel="stylesheet" th:href="@{/asserts/css/all.css}">
@@ -44,12 +44,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="staff:${staffs}" th:if="${staff.name}!=${#session.getAttribute('username')}">
-                                        <td th:text="${staff.id}"></td>
-                                        <td th:text="${staff.name}"></td>
-                                        <td th:text="${staff.gender}==0?#{female}:#{male}"></td>
-                                        <td th:text="${staff.age}"></td>
-                                        <td th:text="${staff.department.name}"></td>
+                                    <tr th:each="staff:${staffs}" th:object="${staff}" th:if="${staff.id}!=${staffId}">
+                                        <td th:text="*{id}"></td>
+                                        <td th:text="*{name}"></td>
+                                        <td th:text="*{gender}==0?#{female}:#{male}"></td>
+                                        <td th:text="*{age}"></td>
+                                        <td th:text="*{department.name}"></td>
                                         <td>
                                             <!-- a标签发送Get请求 -->
                                             <a type="button" class="mb-2 btn btn-primary mr-2" th:href="@{/staff/}+${staff.id}">[[#{update}]]</a>

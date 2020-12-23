@@ -6,7 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/hrms
 
   messages:
-    basename: i18n.login,i18n.dashboard,i18n.staff,i18n.department,i18n.userprofile,i18n.error
+    basename: i18n.login,i18n.dashboard,i18n.staff,i18n.department,i18n.userprofile,i18n.error,i18n.add_new_user
     encoding: UTF-8
 
   mvc:

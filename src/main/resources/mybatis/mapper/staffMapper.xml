@@ -29,6 +29,10 @@
         where staff.departmentId = department.id;
     </select>
 
+    <select id="getStaffsWithoutUser" resultMap="staffMap">
+        select staff.*,department.name as departmentName from staff,department where staff.id not in(select staffId from user)
+    </select>
+
     <select id="getStaffById" resultMap="staffMap">
         select staff.*, department.name as departmentName
         from staff,

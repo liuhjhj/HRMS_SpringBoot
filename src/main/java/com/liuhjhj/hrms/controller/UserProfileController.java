@@ -32,7 +32,6 @@ public class UserProfileController {
 
     @GetMapping("/{name}")
     public String toUserProfilePage(@PathVariable("name") String name, Model model){
-        model.addAttribute("buttonAction","update");
         Staff userprofile = staffDao.getStaffById(userDao.getStaffId(name));
         System.out.println("toUserProfilePage");
         List<Department> departments = departmentDao.getDepartments();
@@ -49,14 +48,21 @@ public class UserProfileController {
     }
 
     //redirectAttributes.addFlashAttribute方法解决带参数重定向的问题
-    @PutMapping("/reset-password")
-    public String updatePassword(String password, HttpSession session, RedirectAttributes redirectAttributes){
+    @PutMapping("/reset_password")
+    public String updatePassword(String password, String confirm, HttpSession session,Model model, RedirectAttributes redirectAttributes){
         String username = (String) session.getAttribute("username");
-        userDao.updatePassword(username, password);
-        System.out.println("updatePassword:"+password);
-        session.removeAttribute("username");
-        redirectAttributes.addFlashAttribute("error","reset_password_success");
-        return "redirect:/login";
+        if (!password.equals(confirm)){ //两次输入的密码不相同
+            redirectAttributes.addFlashAttribute("msg","password_is_not_match");
+        }else if (password.equals(userDao.getPassword(username))){  //新密码与原密码相等
+            redirectAttributes.addFlashAttribute("msg","same_password");
+        }else { //修改密码
+            userDao.updatePassword(username, password);
+            System.out.println("updatePassword:" + password);
+            session.removeAttribute("username");
+            redirectAttributes.addFlashAttribute("error", "reset_password_success");
+            return "redirect:/login";
+        }
+        return "redirect:/userprofile/"+username;
     }
 
 }

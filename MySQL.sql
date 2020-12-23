@@ -62,7 +62,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (7,'刘宏基',1,210000,1),(8,'ryan',1,400,1),(9,'Allan',0,1000,2),(17,'哇热热！',0,123156,2),(18,'1',0,21,1);
+INSERT INTO `staff` VALUES (7,'刘宏基',1,210000,1),(8,'ryan',1,400,1),(9,'Allan',0,1000,2),(17,'哇热热！',0,123156,2),(18,'1',0,21,2);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,4 +100,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-21 17:10:10
+-- Dump completed on 2020-12-23 16:52:50

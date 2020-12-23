@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>[[#{add_new_user}]]</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/all.css" rel="stylesheet" th:href="@{/asserts/css/all.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="styles/shards-dashboards.1.1.0.min.css"
+          th:href="@{/asserts/css/shards-dashboards.1.1.0.min.css}">
+    <link rel="stylesheet" href="styles/extras.1.1.0.min.css" th:href="@{/asserts/css/extras.1.1.0.min.css}">
+    <script async defer src="js/buttons.js" th:src="@{/asserts/js/buttons.js}"></script>
+</head>
+<body class="h-100">
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Sidebar -->
+        <div th:replace="component/sidebar::#side_bar"></div>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+            <!-- / .main-navbar -->
+            <div class="main-content-container container-fluid px-4">
+                <div th:replace="component/topbar::#top_bar"></div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card card-small mb-4 pt-3">
+                            <div class="card-header border-bottom text-center">
+                                <div class="mb-3 mx-auto">
+                                    <img class="rounded-circle" src="images/avatars/0.jpg" alt="User Avatar" width="110"
+                                         th:src="@{/asserts/images/user.svg}">
+                                    <h4 class="mb-0" th:text="#{add_new_user}"></h4>
+                                </div>
+                                <li class="list-group-item p-3">
+                                    <form th:method="post" action="/add_new_user">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group input-group-seamless">
+                                                <span class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">person</i>
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" name="username"
+                                                       placeholder="Username" th:placeholder="#{username}" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group input-group-seamless">
+                                                <span class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">lock</i>
+                                                    </span>
+                                                </span>
+                                                <input type="password" class="form-control" id="password"
+                                                       name="password" placeholder="Password"
+                                                       th:placeholder="#{password}"
+                                                       required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <!--表单提交的下拉框的值是下拉框的value，后台提取数据的数据名是select的name-->
+                                            <select class="form-control is-invalid" id="select" name="staffId" style="background-image: none">
+                                                <option th:selected="true" id="choose_staff" th:text="#{drop_down_to_choose_staff}"></option>
+                                                <option th:each="staff:${staffs}" th:value="${staff.id}" th:text="${staff.name}"></option>
+                                            </select>
+                                            <div class="invalid-feedback" th:text="#{not_choose_staff}"></div>
+                                        </div>
+                                        <button type="submit" class="btn btn-accent" id="add" th:text="#{add}"></button>
+                                    </form>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card card-small mb-4">
+                            <div class="card-header border-bottom">
+                                <h6 class="m-0">[[#{staff_without_account}]]</h6>
+                            </div>
+                            <div class="card-body p-0 pb-3 text-center">
+                                <table class="table mb-0" style="table-layout:fixed">
+                                    <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" class="border-0">[[#{id}]]</th>
+                                        <th scope="col" class="border-0">[[#{name}]]</th>
+                                        <th scope="col" class="border-0">[[#{gender}]]</th>
+                                        <th scope="col" class="border-0">[[#{age}]]</th>
+                                        <th scope="col" class="border-0">[[#{department}]]</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="staff:${staffs}" th:object="${staff}">
+                                        <td th:text="*{id}"></td>
+                                        <td th:text="*{name}"></td>
+                                        <td th:text="*{gender}==0?#{female}:#{male}"></td>
+                                        <td th:text="*{age}"></td>
+                                        <td th:text="*{department.name}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / .main-navbar -->
+            <div th:replace="component/bottombar::#bottom_bar"></div>
+        </main>
+    </div>
+</div>
+<script src="scripts/jquery-3.3.1.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/popper.min.js" th:src="@{/webjars/popper.js/1.16.0/popper.js}"></script>
+<script src="scripts/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.js}"></script>
+<script src="scripts/Chart.min.js" th:src="@{/webjars/chartjs/2.9.3/Chart.js}"></script>
+<script src="scripts/shards.min.js" th:src="@{/asserts/js/shards.min.js}"></script>
+<script src="scripts/jquery.sharrre.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script src="scripts/extras.1.1.0.min.js" th:src="@{/asserts/js/extras.1.1.0.min.js}"></script>
+<script src="scripts/shards-dashboards.1.1.0.min.js" th:src="@{/asserts/js/shards-dashboards.1.1.0.js}"></script>
+<script src="scripts/app/app-blog-overview.1.1.0.js" th:src="@{/asserts/js/app/app-blog-overview.1.1.0.js}"></script>
+</body>
+<script>
+    $(function () {
+        $("#select").click(function () {
+            $("#select>option[id='choose_staff']").remove()
+            $(this).removeClass("is-invalid")
+            $(".invalid-feedback").remove()
+        })
+    })
+</script>
+<script>
+    function submitUser() {
+
+    }
+</script>
+</html>

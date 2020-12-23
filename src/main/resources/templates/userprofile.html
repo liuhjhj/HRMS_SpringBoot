@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>[[#{userprofile}]]</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="css/all.css" rel="stylesheet" th:href="@{/asserts/css/all.css}">
@@ -34,11 +34,13 @@
                                 <h4 class="mb-0" th:text="${#session.getAttribute('username')}"></h4>
                             </div>
                             <li class="list-group-item p-3">
-                                <form th:method="put" action="/userprofile/reset-password" onsubmit="return isPasswordSubmit()">
+                                <form th:method="put" action="/userprofile/reset_password"
+                                      onsubmit="return isPasswordSubmit()">
                                     <div class="input-group mb-3">
                                         <div class="input-group input-group-seamless">
                                             <input type="password" class="form-control" id="password"
-                                                   name="password" placeholder="Password" th:placeholder="#{password}" required>
+                                                   name="password" placeholder="Password" th:placeholder="#{password}"
+                                                   required>
                                             <span class="input-group-append">
                                                 <span class="input-group-text">
                                                 <i class="material-icons">lock</i>
@@ -49,7 +51,8 @@
                                     <div class="input-group mb-3">
                                         <div class="input-group input-group-seamless">
                                             <input type="password" class="form-control" id="confirm"
-                                                   name="confirm" placeholder="Password" th:placeholder="#{confirm}" required>
+                                                   name="confirm" placeholder="Password" th:placeholder="#{confirm}"
+                                                   required>
                                             <span class="input-group-append">
                                                 <span class="input-group-text">
                                                 <i class="material-icons">lock</i>
@@ -57,7 +60,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <p id="error" style="color: red" th:text="#{password_is_not_match}" hidden></p>
+                                    <p id="error" style="color: red" th:if="${msg}!=null" th:text="#{${msg}}"></p>
                                     <button type="submit" class="btn btn-accent" th:text="#{reset_password}"
                                             id="submitPassword"></button>
                                 </form>
@@ -136,21 +139,4 @@
 <script src="scripts/shards-dashboards.1.1.0.min.js" th:src="@{/asserts/js/shards-dashboards.1.1.0.js}"></script>
 <script src="scripts/app/app-blog-overview.1.1.0.js" th:src="@{/asserts/js/app/app-blog-overview.1.1.0.js}"></script>
 </body>
-<script>
-    //删除TopBar的按钮
-    $(function () {
-        $("button[name='update']").remove()
-    })
-</script>
-<script>
-    function isPasswordSubmit() {
-        if ($("#password").val()===$("#confirm").val()){
-            return true
-        }else {
-            $("#error").removeAttr("hidden")
-            $("#confirm").val("")
-            return false
-        }
-    }
-</script>
 </html>

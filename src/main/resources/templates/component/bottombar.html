@@ -5,14 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-    <footer id="bottom_bar" class="main-footer d-flex p-2 px-3 bg-white border-top">
+<footer id="bottom_bar" class="main-footer d-flex p-2 px-3 bg-white border-top">
     <ul class="nav">
         <li class="nav-item">
             <!-- 链接选择器中为变量选择器添加属性需要使用 || 符号 -->
             <a id="zh" class="nav-link" href="#" th:href="|@{${#httpServletRequest.requestURI}(lang=zh_CN)}|">中文</a>
         </li>
         <li class="nav-item">
-            <a id="en" class="nav-link" href="#" th:href="|@{${#httpServletRequest.requestURI}(lang=en_US)}|">English</a>
+            <a id="en" class="nav-link" href="#"
+               th:href="|@{${#httpServletRequest.requestURI}(lang=en_US)}|">English</a>
         </li>
     </ul>
 </footer>

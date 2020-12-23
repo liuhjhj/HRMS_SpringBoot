@@ -13,7 +13,7 @@
     </div>
     <div class="col-12 col-sm-8 text-center text-sm-right mb-0 mt-3">
         <!-- 从后台传入button的action类型（添加，更新或者返回），避免从上一个页面传入参数 -->
-        <button type="button" class="mb-2 btn btn-success mr-2" th:id="${buttonAction}" th:name="${buttonAction}">[[#{${buttonAction}}]]</button>
+        <button type="button" class="mb-2 btn btn-success mr-2" th:if="${buttonAction}!=null" th:id="${buttonAction}" th:name="${buttonAction}">[[#{${buttonAction}}]]</button>
     </div>
 </div>
 </body>
