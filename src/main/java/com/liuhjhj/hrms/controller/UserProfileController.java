@@ -21,14 +21,26 @@ import java.util.List;
 @RequestMapping("/userprofile")
 public class UserProfileController {
 
-    @Autowired
-    StaffDao staffDao;
+    private StaffDao staffDao;
+
+    private DepartmentDao departmentDao;
+
+    private UserDao userDao;
 
     @Autowired
-    DepartmentDao departmentDao;
+    public void setStaffDao(StaffDao staffDao) {
+        this.staffDao = staffDao;
+    }
 
     @Autowired
-    UserDao userDao;
+    public void setDepartmentDao(DepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @GetMapping("/{name}")
     public String toUserProfilePage(@PathVariable("name") String name, Model model){
@@ -49,7 +61,7 @@ public class UserProfileController {
 
     //redirectAttributes.addFlashAttribute方法解决带参数重定向的问题
     @PutMapping("/reset_password")
-    public String updatePassword(String password, String confirm, HttpSession session,Model model, RedirectAttributes redirectAttributes){
+    public String updatePassword(String password, String confirm, HttpSession session, RedirectAttributes redirectAttributes){
         String username = (String) session.getAttribute("username");
         if (!password.equals(confirm)){ //两次输入的密码不相同
             redirectAttributes.addFlashAttribute("msg","password_is_not_match");

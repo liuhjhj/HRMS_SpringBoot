@@ -1,9 +1,7 @@
 package com.liuhjhj.hrms.controller;
 
-import com.liuhjhj.hrms.dao.DepartmentDao;
 import com.liuhjhj.hrms.dao.StaffDao;
 import com.liuhjhj.hrms.dao.UserDao;
-import com.liuhjhj.hrms.entity.Department;
 import com.liuhjhj.hrms.entity.Staff;
 import com.liuhjhj.hrms.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +17,19 @@ import java.util.List;
 @RequestMapping("/add_new_user")
 public class AddUserController {
 
-    @Autowired
-    StaffDao staffDao;
+    private StaffDao staffDao;
+
+    private UserDao userDao;
 
     @Autowired
-    UserDao userDao;
+    public void setStaffDao(StaffDao staffDao) {
+        this.staffDao = staffDao;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @GetMapping()
     public String toAddNewUserPage(Model model){

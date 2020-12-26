@@ -2,8 +2,8 @@ package com.liuhjhj.hrms.entity;
 
 public class Department {
 
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
 
     public Department() {
     }

@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Staff {
 
-    Integer id;
-    String name;
-    Integer gender;
-    Integer age;
-    Department department;
+    private Integer id;
+    private String name;
+    private Integer gender;
+    private Integer age;
+    private Department department;
 
     public Staff() {
     }

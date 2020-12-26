@@ -5,7 +5,6 @@ import com.liuhjhj.hrms.dao.StaffDao;
 import com.liuhjhj.hrms.dao.UserDao;
 import com.liuhjhj.hrms.entity.Department;
 import com.liuhjhj.hrms.entity.Staff;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +16,26 @@ import java.util.List;
 @Controller
 public class StaffController {
 
-    @Autowired
-    StaffDao staffDao;
+    private StaffDao staffDao;
+
+    private DepartmentDao departmentDao;
+
+    private UserDao userDao;
 
     @Autowired
-    DepartmentDao departmentDao;
+    public void setStaffDao(StaffDao staffDao) {
+        this.staffDao = staffDao;
+    }
 
     @Autowired
-    UserDao userDao;
+    public void setDepartmentDao(DepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     //Get方式是获取页面
     @GetMapping("/staffs")

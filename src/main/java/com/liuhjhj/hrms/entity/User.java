@@ -2,9 +2,9 @@ package com.liuhjhj.hrms.entity;
 
 public class User {
 
-    String username;
-    String password;
-    Integer staffId;
+    private String username;
+    private String password;
+    private Integer staffId;
 
     public User() {
     }

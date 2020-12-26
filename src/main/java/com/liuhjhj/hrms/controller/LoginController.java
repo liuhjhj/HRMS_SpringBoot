@@ -12,8 +12,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
+    private UserDao userDao;
+
     @Autowired
-    UserDao userDao;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @PostMapping("/login")
     public ModelAndView userLogin(
