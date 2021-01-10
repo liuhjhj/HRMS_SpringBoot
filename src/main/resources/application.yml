@@ -3,7 +3,7 @@ spring:
     username: root
     password: 258196
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hrms
+    url: jdbc:mysql://localhost:3306/hrms?serverTimezone=UTC&characterEncoding=utf-8
 
   messages:
     basename: i18n.login,i18n.dashboard,i18n.staff,i18n.department,i18n.userprofile,i18n.error,i18n.add_new_user

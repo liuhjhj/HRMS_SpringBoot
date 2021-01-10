@@ -8,7 +8,7 @@ public interface UserService {
 
     Integer getStaffId(String username);
 
-    Boolean addUser(User user);
+    void addUser(User user);
 
     Boolean userLogin(String username, String password);
 }

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImplement implements UserService {
 
-    private final UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    public UserServiceImplement(UserDao userDao) {
+    public void setUserDao(UserDao userDao){
         this.userDao = userDao;
     }
 
@@ -22,13 +22,11 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public Boolean addUser(User user) {
+    public void addUser(User user) {
         try {
             userDao.addUser(user);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 

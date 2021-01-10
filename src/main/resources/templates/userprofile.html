@@ -76,7 +76,7 @@
                                 <li class="list-group-item p-3">
                                     <div class="row">
                                         <div class="col">
-                                            <form th:method="put" th:action="@{/userprofile/}">
+                                            <form th:method="put" th:action="@{/userprofile/}+${userprofile.name}">
                                                 <!-- update的话需要保存userprofile的id去数据库里更新userprofile -->
                                                 <input type="hidden" name="id" id="id" th:value="${userprofile.id}">
                                                 <div class="form-group">

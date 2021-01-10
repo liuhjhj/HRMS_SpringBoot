@@ -1,10 +1,9 @@
 package com.liuhjhj.hrms.controller;
 
-import com.liuhjhj.hrms.dao.DepartmentDao;
-import com.liuhjhj.hrms.dao.StaffDao;
-import com.liuhjhj.hrms.dao.UserDao;
 import com.liuhjhj.hrms.entity.Department;
 import com.liuhjhj.hrms.entity.Staff;
+import com.liuhjhj.hrms.service.implement.DepartmentServiceImplement;
+import com.liuhjhj.hrms.service.implement.StaffServiceImplement;
 import com.liuhjhj.hrms.service.implement.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,20 +21,20 @@ import java.util.List;
 @RequestMapping("/userprofile")
 public class UserProfileController {
 
-    private StaffDao staffDao;
+    private StaffServiceImplement staffServiceImplement;
 
-    private DepartmentDao departmentDao;
+    private DepartmentServiceImplement departmentServiceImplement;
 
     private UserServiceImplement userServiceImplement;
 
     @Autowired
-    public void setStaffDao(StaffDao staffDao) {
-        this.staffDao = staffDao;
+    public void setStaffServiceImplement(StaffServiceImplement staffServiceImplement) {
+        this.staffServiceImplement = staffServiceImplement;
     }
 
     @Autowired
-    public void setDepartmentDao(DepartmentDao departmentDao) {
-        this.departmentDao = departmentDao;
+    public void setDepartmentServiceImplement(DepartmentServiceImplement departmentServiceImplement) {
+        this.departmentServiceImplement = departmentServiceImplement;
     }
 
     @Autowired
@@ -45,19 +44,19 @@ public class UserProfileController {
 
     @GetMapping("/{name}")
     public String toUserProfilePage(@PathVariable("name") String name, Model model){
-        Staff userprofile = staffDao.getStaffById(userServiceImplement.getStaffId(name));
+        Staff userprofile = staffServiceImplement.getStaffById(userServiceImplement.getStaffId(name));
         System.out.println("toUserProfilePage");
-        List<Department> departments = departmentDao.getDepartments();
+        List<Department> departments = departmentServiceImplement.getDepartments();
         model.addAttribute("departments",departments);
         model.addAttribute("userprofile",userprofile);
         return "userprofile";
     }
 
-    @PutMapping()
+    @PutMapping("/{name}")
     public String updateUserProfile(Staff staff){
-        staffDao.updateStaff(staff);
+        staffServiceImplement.updateStaff(staff);
         System.out.println("updateStaff:"+staff);
-        return "redirect:/userprofile/"+staff.getName();
+        return "userprofile";
     }
 
     //redirectAttributes.addFlashAttribute方法解决带参数重定向的问题

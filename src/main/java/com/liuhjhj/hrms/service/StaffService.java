@@ -1,11 +1,10 @@
-package com.liuhjhj.hrms.dao;
+package com.liuhjhj.hrms.service;
 
 import com.liuhjhj.hrms.entity.Staff;
-import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
-@Mapper
-public interface StaffDao {
+public interface StaffService {
 
     List<Staff> getStaffs();
 

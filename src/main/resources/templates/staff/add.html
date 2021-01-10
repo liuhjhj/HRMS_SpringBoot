@@ -35,7 +35,7 @@
                                     <div class="col">
                                         <!-- 如果staff不为空则表明是update页面，method是PUT;否则就是add页面，method是POST -->
                                         <!-- 需要在配置文件里设置spring.mvc.hiddenmethod.filter.enabled=true，否则无法发送Put和Delete请求 -->
-                                        <form th:method="${staff!=null}?'put':'post'" th:action="@{/staff}">
+                                        <form th:method="${staff!=null}?'put':'post'" th:action="${staff!=null}?@{/staff/}+${staff.id}:@{/staff}">
                                             <!-- update的话需要保存staff的id去数据库里更新staff -->
                                             <input type="hidden" name="id" id="id" th:if="${staff!=null}" th:value="${staff.id}">
                                             <div class="form-group">
