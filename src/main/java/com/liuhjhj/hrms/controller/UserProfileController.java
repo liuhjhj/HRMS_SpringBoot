@@ -5,6 +5,7 @@ import com.liuhjhj.hrms.dao.StaffDao;
 import com.liuhjhj.hrms.dao.UserDao;
 import com.liuhjhj.hrms.entity.Department;
 import com.liuhjhj.hrms.entity.Staff;
+import com.liuhjhj.hrms.service.implement.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class UserProfileController {
 
     private DepartmentDao departmentDao;
 
-    private UserDao userDao;
+    private UserServiceImplement userServiceImplement;
 
     @Autowired
     public void setStaffDao(StaffDao staffDao) {
@@ -38,13 +39,13 @@ public class UserProfileController {
     }
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setUserServiceImplement(UserServiceImplement userServiceImplement) {
+        this.userServiceImplement = userServiceImplement;
     }
 
     @GetMapping("/{name}")
     public String toUserProfilePage(@PathVariable("name") String name, Model model){
-        Staff userprofile = staffDao.getStaffById(userDao.getStaffId(name));
+        Staff userprofile = staffDao.getStaffById(userServiceImplement.getStaffId(name));
         System.out.println("toUserProfilePage");
         List<Department> departments = departmentDao.getDepartments();
         model.addAttribute("departments",departments);
@@ -63,18 +64,16 @@ public class UserProfileController {
     @PutMapping("/reset_password")
     public String updatePassword(String password, String confirm, HttpSession session, RedirectAttributes redirectAttributes){
         String username = (String) session.getAttribute("username");
-        if (!password.equals(confirm)){ //两次输入的密码不相同
-            redirectAttributes.addFlashAttribute("msg","password_is_not_match");
-        }else if (password.equals(userDao.getPassword(username))){  //新密码与原密码相等
-            redirectAttributes.addFlashAttribute("msg","same_password");
-        }else { //修改密码
-            userDao.updatePassword(username, password);
+        if (userServiceImplement.updatePassword(username,password,confirm)){    //修改密码
             System.out.println("updatePassword:" + password);
             session.removeAttribute("username");
             redirectAttributes.addFlashAttribute("error", "reset_password_success");
             return "redirect:/login";
+        }else {
+            redirectAttributes.addFlashAttribute("msg","reset_password_fail");
+            return "redirect:/userprofile/"+username;
         }
-        return "redirect:/userprofile/"+username;
+
     }
 
 }
