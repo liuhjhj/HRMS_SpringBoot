@@ -2,9 +2,9 @@ package com.liuhjhj.hrms.controller;
 
 import com.liuhjhj.hrms.dao.DepartmentDao;
 import com.liuhjhj.hrms.dao.StaffDao;
-import com.liuhjhj.hrms.dao.UserDao;
 import com.liuhjhj.hrms.entity.Department;
 import com.liuhjhj.hrms.entity.Staff;
+import com.liuhjhj.hrms.service.implement.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class StaffController {
 
     private DepartmentDao departmentDao;
 
-    private UserDao userDao;
+    private UserServiceImplement userServiceImplement;
 
     @Autowired
     public void setStaffDao(StaffDao staffDao) {
@@ -33,15 +33,15 @@ public class StaffController {
     }
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setUserServiceImplement(UserServiceImplement userServiceImplement) {
+        this.userServiceImplement = userServiceImplement;
     }
 
     //Get方式是获取页面
     @GetMapping("/staffs")
     public String toListPage(Model model, HttpSession session){
         List<Staff> staffs = staffDao.getStaffs();
-        Integer staffId = userDao.getStaffId((String) session.getAttribute("username"));
+        Integer staffId = userServiceImplement.getStaffId((String) session.getAttribute("username"));
         model.addAttribute("staffs",staffs);
         model.addAttribute("staffId",staffId);
         //员工的StaffList页面的TopBar的按钮类型是Add

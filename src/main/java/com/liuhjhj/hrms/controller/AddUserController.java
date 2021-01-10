@@ -4,6 +4,7 @@ import com.liuhjhj.hrms.dao.StaffDao;
 import com.liuhjhj.hrms.dao.UserDao;
 import com.liuhjhj.hrms.entity.Staff;
 import com.liuhjhj.hrms.entity.User;
+import com.liuhjhj.hrms.service.implement.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ public class AddUserController {
 
     private StaffDao staffDao;
 
-    private UserDao userDao;
+    private UserServiceImplement userServiceImplement;
 
     @Autowired
     public void setStaffDao(StaffDao staffDao) {
@@ -27,8 +28,8 @@ public class AddUserController {
     }
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setUserServiceImplement(UserServiceImplement userServiceImplement) {
+        this.userServiceImplement = userServiceImplement;
     }
 
     @GetMapping()
@@ -40,8 +41,12 @@ public class AddUserController {
 
     @PostMapping()
     public String addUser(User user){
-        userDao.addUser(user);
-        System.out.println("Add User:"+user);
-        return "redirect:/add_new_user";
+        if (userServiceImplement.addUser(user)){
+            System.out.println("Add User:"+user);
+            return "redirect:/add_new_user";
+        }
+        else {
+            return null;
+        }
     }
 }

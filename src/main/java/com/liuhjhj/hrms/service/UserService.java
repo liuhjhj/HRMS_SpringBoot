@@ -4,13 +4,11 @@ import com.liuhjhj.hrms.entity.User;
 
 public interface UserService {
 
-    public String getPassword(String username);
+    Boolean updatePassword(String username, String password, String confirm);
 
-    public Boolean updatePassword(String username, String password, String confirm);
+    Integer getStaffId(String username);
 
-    public Integer getStaffId(String username);
+    Boolean addUser(User user);
 
-    public Boolean addUser(User user);
-
-    public Boolean userLogin(String username, String password);
+    Boolean userLogin(String username, String password);
 }

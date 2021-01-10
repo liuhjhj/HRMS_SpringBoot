@@ -17,11 +17,6 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public String getPassword(String username) {
-        return userDao.getPassword(username);
-    }
-
-    @Override
     public Integer getStaffId(String username) {
         return userDao.getStaffId(username);
     }

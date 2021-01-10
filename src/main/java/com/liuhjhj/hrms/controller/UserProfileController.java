@@ -64,7 +64,7 @@ public class UserProfileController {
     @PutMapping("/reset_password")
     public String updatePassword(String password, String confirm, HttpSession session, RedirectAttributes redirectAttributes){
         String username = (String) session.getAttribute("username");
-        if (userServiceImplement.updatePassword(username,password,confirm)){    //修改密码
+        if (userServiceImplement.updatePassword(username,password,confirm)){    //修改密码成功
             System.out.println("updatePassword:" + password);
             session.removeAttribute("username");
             redirectAttributes.addFlashAttribute("error", "reset_password_success");
